@@ -69,8 +69,10 @@ func Run(opts cgargs.Options) {
 	if err := generateInformers(groups, customArgs); err != nil {
 		klog.Fatalf("informers failed: %v", err)
 	}
-	if err := clientGen.GenerateMocks(); err != nil {
-		klog.Fatalf("mocks failed: %v", err)
+	if opts.GenMocks {
+		if err := clientGen.GenerateMocks(); err != nil {
+			klog.Fatalf("mocks failed: %v", err)
+		}
 	}
 }
 
