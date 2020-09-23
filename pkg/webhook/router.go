@@ -97,12 +97,18 @@ type Request struct {
 
 func (r *Request) DecodeOldObject() (runtime.Object, error) {
 	obj := r.objTemplate.DeepCopyObject()
+	if len(r.OldObject.Raw) == 0 {
+		return obj, nil
+	}
 	err := json.Unmarshal(r.OldObject.Raw, obj)
 	return obj, err
 }
 
 func (r *Request) DecodeObject() (runtime.Object, error) {
 	obj := r.objTemplate.DeepCopyObject()
+	if len(r.Object.Raw) == 0 {
+		return obj, nil
+	}
 	err := json.Unmarshal(r.Object.Raw, obj)
 	return obj, err
 }
